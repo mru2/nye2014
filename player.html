@@ -40,7 +40,7 @@
       return;
     }
     else{
-      pageLoaded = true;
+      pageLoaded = true;      
       console.log('calling pop, page is ', pageLoaded);
       $.getJSON('/api/pop', function(trackId){
         DZ.player.playTracks([trackId]);
@@ -62,7 +62,7 @@
       if(pos[0] == 0 && pageLoaded == true){
         console.log('reloading : ', pos);
         pageLoaded = false;
-        setTimeout(reload, 10); // Sync global variable
+        reload(); // Sync global variable
       }
     });
 
