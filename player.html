@@ -34,10 +34,12 @@
   var pageLoaded = true;
 
   function reload(){
+    console.log('trying to reload, page is', pageLoaded);
     if(pageLoaded == true){
       return;
     }
     pageLoaded = true;
+    console.log('calling pop, page is ', pageLoaded);
     $.getJSON('/api/pop', function(trackId){
       DZ.player.playTracks([trackId]);
     });
