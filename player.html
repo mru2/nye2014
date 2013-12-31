@@ -41,10 +41,12 @@
     }
     else{
       pageLoaded = true;      
-      console.log('calling pop, page is ', pageLoaded);
-      $.getJSON('/api/pop', function(trackId){
-        DZ.player.playTracks([trackId]);
-      });      
+      setTimeout(function(){
+        console.log('calling pop, page is ', pageLoaded);
+        $.getJSON('/api/pop', function(trackId){
+          DZ.player.playTracks([trackId]);
+        });              
+      }, 1);
     }
   }
 
