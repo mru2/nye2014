@@ -34,9 +34,15 @@
   var pageLoaded = true;
 
   function reload(){
-    $.getJSON('/api/pop', function(trackId){
-      DZ.player.playTracks([trackId]);
-    });
+    if(pageLoaded == false){
+      return;
+    }
+    pageLoaded = true;
+    setTimeout(function(){
+      $.getJSON('/api/pop', function(trackId){
+        DZ.player.playTracks([trackId]);
+      });
+    }, 1);
   }
 
   function onPlayerLoaded() {
@@ -52,7 +58,7 @@
       // First is beginning, second is the end
       if(pos[0] == 0 && pageLoaded == true){
         console.log('reloading : ', pos);
-        pageLoaded == false;        
+        pageLoaded == false;
         setTimeout(reload, 1); // Sync global variable
       }
     });
