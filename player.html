@@ -18,6 +18,8 @@
 </div>
 
 <script>
+  var pageLoaded = false;
+
   $(document).ready(function(){
     $("#controlers input").attr('disabled', true);
   });
@@ -31,11 +33,24 @@
     pre.innerHTML += line.join(' ') + "\n";
   }
 
-  function addNextTrack(){
-    $.getJSON('/api/pop', function(trackId){
-      DZ.api('/playlist/728065965/tracks', 'POST', { songs: [trackId] }, function(response){
-        console.log('adding track', trackId, 'response : ',  response);
-      });      
+  function addNextTrack(opts){
+    // Ignore first call, will be triggered on page load
+    if( !pageLoaded ){
+      pageLoaded = true;
+      var currentTrackId = opts.track.id;
+      console.log('current track : ', opts.track);
+      return false;
+    }
+
+    $.getJSON('/api/pop', function(newTrackId){
+      DZ.api('/playlist/728065965/tracks', 'POST', { songs: [newTrackId] }, function(response){
+
+        // Now, clear the former track and reload the page
+        DZ.api('/playlist/728065965/tracks', 'POST', { songs: [currentTrackId] }, function(response){
+          window.location = '/';
+        }
+
+      });
     });
   }
 
@@ -43,7 +58,7 @@
     $("#controlers input").attr('disabled', false);
 
     DZ.Event.subscribe('current_track', function(arg){
-      addNextTrack();
+      addNextTrack(arg);
     });
 
     DZ.player.playPlaylist(728065965);
@@ -71,7 +86,7 @@
     } else {
       console.log('User cancelled login or did not fully authorize.');
     }
-  }, {perms: 'manage_library'});
+  }, {perms: 'manage_library,delete_library'});
 
 
 </script><br/>
