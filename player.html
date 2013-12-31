@@ -13,7 +13,15 @@
 
 <script>
 
+  var pageLoaded = false;
+
   function reload(opts){
+
+    // First call is to be ignored
+    if (!pageLoaded){
+      pageLoaded = true;
+      return;
+    }
 
     DZ.player.pause(); // Necessary?
     window.location.href = window.location.href; // Trick for no warning
