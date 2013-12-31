@@ -34,15 +34,13 @@
   var pageLoaded = true;
 
   function reload(){
-    if(pageLoaded == false){
+    if(pageLoaded == true){
       return;
     }
     pageLoaded = true;
-    setTimeout(function(){
-      $.getJSON('/api/pop', function(trackId){
-        DZ.player.playTracks([trackId]);
-      });
-    }, 1);
+    $.getJSON('/api/pop', function(trackId){
+      DZ.player.playTracks([trackId]);
+    });
   }
 
   function onPlayerLoaded() {
