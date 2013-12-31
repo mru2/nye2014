@@ -45,12 +45,14 @@
 
       // Track has begun
       if(pos[0] > 0){
-        pageLoaded = true;       
+        console.log('page loaded : ', pos);
+        pageLoaded = true;
       }
 
       // First is beginning, second is the end
       if(pos[0] == 0 && pageLoaded == true){
-        pageLoaded == false;
+        console.log('reloading : ', pos);
+        pageLoaded == false;        
         reload();
       }
     });
