@@ -15,7 +15,7 @@
 
   var pageLoaded = false;
 
-  function reload(opts){
+  function reload(){
 
     // First call is to be ignored
     if (!pageLoaded){
@@ -24,8 +24,8 @@
     }
 
     console.log('reloading...');
+    pageLoaded = false;
 
-    DZ.player.pause(); // Necessary?
     window.location.href = window.location.href; // Trick for no warning
 
 
@@ -51,19 +51,12 @@
   }
 
   function onPlayerLoaded() {
-    DZ.Event.subscribe('current_track', function(arg){
-      reload(arg);
-    });
-    DZ.Event.subscribe('paused', function(arg){
-      console.log('paused', args);
-    });
 
-    DZ.Event.subscribe('paused', function(args){
-      console.log('paused', args);
-    });
-
-    DZ.Event.subscribe('player_position', function(args){
-      console.log('player_position', args);
+    DZ.Event.subscribe('player_position', function(pos){
+      // First is beginning, second is the end
+      if(pos[0] == 0){
+        reload();
+      }
     });
 
 
