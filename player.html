@@ -26,7 +26,15 @@
     console.log('reloading...');
     pageLoaded = false;
 
-    window.location.href = window.location.href; // Trick for no warning
+    // DZ.player.pause(); // Not working
+    // window.location.href = window.location.href; // Trick for no warning
+
+
+    $.getJSON('/api/pop', function(trackId){
+      DZ.player.playTracks([trackId]);
+    });
+
+
 
 
     // // Ignore first call, will be triggered on page load
