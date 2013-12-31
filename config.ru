@@ -2,7 +2,14 @@ require 'rack'
 require 'rack/contrib/try_static'
 require 'rack/contrib/not_found'
 
+require './api.rb'
+
 root_directory = ::File.expand_path('..',  __FILE__)
+
+map "/api" do
+  run Api
+end
+
 
 map "/" do  
 
