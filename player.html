@@ -31,18 +31,9 @@
 
 <script>
 
-  var pageLoaded = false;
+  var pageLoaded = true;
 
   function reload(){
-
-    // First call is to be ignored
-    if (!pageLoaded){
-      pageLoaded = true;
-      return;
-    }
-
-    pageLoaded = false;
-
     $.getJSON('/api/pop', function(trackId){
       DZ.player.playTracks([trackId]);
     });
@@ -51,8 +42,15 @@
   function onPlayerLoaded() {
 
     DZ.Event.subscribe('player_position', function(pos){
+
+      // Track has begun
+      if(pos[0] > 0){
+        pageLoaded = true;       
+      }
+
       // First is beginning, second is the end
-      if(pos[0] == 0){
+      if(pos[0] == 0 && pageLoaded == true){
+        pageLoaded == false;
         reload();
       }
     });
