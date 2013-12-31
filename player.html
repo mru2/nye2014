@@ -46,8 +46,8 @@
       DZ.api('/playlist/728065965/tracks', 'POST', { songs: [newTrackId] }, function(response){
 
         // Now, clear the former track and reload the page
-        DZ.api('/playlist/728065965/tracks', 'POST', { songs: [currentTrackId] }, function(response){
-          window.location = '/';
+        DZ.api('/playlist/728065965/tracks', 'DELETE', { songs: [currentTrackId] }, function(response){
+          window.location = '/player';
         });
 
       });
