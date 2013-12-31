@@ -31,9 +31,11 @@
     pre.innerHTML += line.join(' ') + "\n";
   }
 
-  function addTrack(trackId) {
-    DZ.api('/playlist/728065965/tracks', 'POST', { songs: [trackId] }, function(response){
-      console.log('adding track', trackId, 'response : ',  response);
+  function addNextTrack(){
+    $.getJSON('/api/pop', function(trackId){
+      DZ.api('/playlist/728065965/tracks', 'POST', { songs: [trackId] }, function(response){
+        console.log('adding track', trackId, 'response : ',  response);
+      });      
     });
   }
 
@@ -41,7 +43,7 @@
     $("#controlers input").attr('disabled', false);
 
     DZ.Event.subscribe('current_track', function(arg){
-      event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
+      addNextTrack();
     });
 
     DZ.player.playPlaylist(728065965);
