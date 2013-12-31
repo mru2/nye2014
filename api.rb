@@ -15,12 +15,13 @@ class Api < Sinatra::Base
     track_id = params[:track_id]
     artist = params[:artist]
     title = params[:title]
+    score = params[:score].to_i
 
     puts "Voting for track : #{params.inspect}"
 
 
     # Increment the score
-    REDIS.zincrby TRACKS_KEY, 1, track_id
+    REDIS.zincrby TRACKS_KEY, score, track_id
 
     # Store the track details
     REDIS.hset "DETAILS_KEY:#{track_id}", "artist", artist
@@ -31,7 +32,7 @@ class Api < Sinatra::Base
   get '/top' do
     content_type :json
 
-    top_tracks = REDIS.zrevrangebyscore TRACKS_KEY, '+inf', '-inf', :with_scores => true
+    top_tracks = REDIS.zrevrangebyscore TRACKS_KEY, '+inf', '1', :with_scores => true
 
     top_tracks.map{|track_id, track_score| REDIS.hgetall("DETAILS_KEY:#{track_id}").merge(:score => track_score, :id => track_id) }.to_json
   end

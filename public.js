@@ -1,4 +1,5 @@
 var allTracks = [];
+var isAdmin = (window.location.search === "?cestquilepatron");
 
 $(document).ready(onReady);
 
@@ -7,10 +8,11 @@ DZ.init({
   channelUrl : '/channel'
 });
 
-function vote(trackId){
+function vote(trackId, score){
+  score = score || 1;
   var track = allTracks[trackId];
   console.log('voting for', track);
-  $.get('/api/vote', {track_id: trackId, title: track.title, artist: track.artist}, function(res){
+  $.get('/api/vote', {track_id: trackId, title: track.title, artist: track.artist, score: score}, function(res){
     window.location.href = window.location.href; // reloading
   });
 }
@@ -25,10 +27,16 @@ function appendTrack(cont, track_id, title, artist, score){
     trackDom += '<div class="small-12 columns">';
 
       if(score !== undefined){
-        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>+1</a>';
+        trackDom += '<a class="button right" onclick="vote(' + track_id + ');">+1</a>';
       }
       else {
-        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>Ajouter</a>';    
+        trackDom += '<a class="button right" onclick="vote(' + track_id + ');">Ajouter</a>';    
+      }
+
+      // Admin
+      if(isAdmin){
+        trackDom += ' <a class="button right" onclick="vote(' + track_id + ', 100);">+100</a> ';        
+        trackDom += ' <a class="button right" onclick="vote(' + track_id + ', -100);">-100</a> ';        
       }
 
       if(score !== undefined){
