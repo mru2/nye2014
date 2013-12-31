@@ -58,8 +58,8 @@
       // First is beginning, second is the end
       if(pos[0] == 0 && pageLoaded == true){
         console.log('reloading : ', pos);
-        pageLoaded == false;
-        setTimeout(reload, 1); // Sync global variable
+        pageLoaded = false;
+        setTimeout(reload, 10); // Sync global variable
       }
     });
 
