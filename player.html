@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
+  <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz-v00202681.js"></script>
+
+</head>
+<body>
+<div id="dz-root"></div>
+<div id="player" style="width:100%;" align="center"></div>
+<br/>
+<div id="controlers">
+ 
+  <input type="button" onclick="addTrack(6516139); return false;" value="Add"/>
+
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#controlers input").attr('disabled', true);
+  });
+
+  function event_listener_append() {
+    var pre = document.getElementById('event_listener');
+    var line = [];
+    for (var i = 0; i < arguments.length; i++) {
+      line.push(arguments[i]);
+    }
+    pre.innerHTML += line.join(' ') + "\n";
+  }
+
+  function addTrack(trackId) {
+    DZ.api('/playlist/728065965/tracks', 'POST', { songs: [trackId] }, function(response){
+      console.log('adding track', trackId, 'response : ',  response);
+    });
+  }
+
+  function onPlayerLoaded() {
+    $("#controlers input").attr('disabled', false);
+
+    DZ.Event.subscribe('current_track', function(arg){
+      event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
+    });
+
+    DZ.player.playPlaylist(728065965);
+  }
+
+  DZ.init({
+    appId  : '129845',
+    channelUrl : '/channel',
+    player : {
+      container : 'player',
+      cover : true,
+      playlist : true,
+      width : 650,
+      height : 150,
+      onload : onPlayerLoaded
+    }
+  });
+
+  DZ.login(function(response) {
+    if (response.authResponse) {
+      console.log('Welcome!  Fetching your information.... ');
+      DZ.api('/user/me', function(response) {
+        console.log('Good to see you, ' + response.name + '.');
+      });
+    } else {
+      console.log('User cancelled login or did not fully authorize.');
+    }
+  }, {perms: 'manage_library'});
+
+
+</script><br/>
+event_listener : <br/>
+<pre id="event_listener" style="height:100px;overflow:auto;"></pre>
+</body>
+</html>
