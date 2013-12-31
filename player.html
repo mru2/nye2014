@@ -15,7 +15,7 @@
 
   function reload(opts){
 
-    DZ.player.pause();
+    DZ.player.pause(); // Necessary?
     window.location.href = window.location.href; // Trick for no warning
 
 
@@ -41,15 +41,13 @@
   }
 
   function onPlayerLoaded() {
-    $("#controlers input").attr('disabled', false);
-
     DZ.Event.subscribe('current_track', function(arg){
       reload(arg);
     });
 
     $.getJSON('/api/pop', function(trackId){
       DZ.player.playTracks([trackId]);
-    }
+    });
   }
 
   DZ.init({
