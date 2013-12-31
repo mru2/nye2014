@@ -44,7 +44,7 @@
     DZ.Event.subscribe('player_position', function(pos){
 
       // Track has begun
-      if(pos[0] > 0){
+      if(pos[0] > 0 && pageLoaded == false){
         console.log('page loaded : ', pos);
         pageLoaded = true;
       }
