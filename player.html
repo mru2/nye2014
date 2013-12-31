@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
-  <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+  <link rel="stylesheet" type="text/css" href="/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/foundation.min.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
 
 </head>
 <body>
-<div id="dz-root"></div>
-<div id="player" style="width:100%;" align="center"></div>
+
+<div class="row">
 <br/>
+<p style="font-size: 3em;">Pour choisir la musique ca se passe sur <strong>http://bit.ly/djcoloc</strong></p>
+<br/>
+</div>
+
+<div id="dz-root"></div>
+
+<br/>
+<br/>
+<br/>
+
+<div id="player" style="width:100%;" align="center"></div>
+
+
+<br/>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
 
 <script>
 
@@ -51,8 +69,9 @@
     player : {
       container : 'player',
       cover : true,
-      width : 650,
-      height : 300,
+      width : 1000,
+      height : 80,
+      playlist: false,
       onload : onPlayerLoaded
     }
   });
