@@ -23,39 +23,11 @@
       return;
     }
 
-    console.log('reloading...');
     pageLoaded = false;
-
-    // DZ.player.pause(); // Not working
-    // window.location.href = window.location.href; // Trick for no warning
-
 
     $.getJSON('/api/pop', function(trackId){
       DZ.player.playTracks([trackId]);
     });
-
-
-
-
-    // // Ignore first call, will be triggered on page load
-    // if( !pageLoaded ){
-    //   pageLoaded = true;
-    //   var currentTrackId = parseInt(opts.track.id);
-    //   console.log('current track : ', opts.track);
-    //   return false;
-    // }
-
-    // $.getJSON('/api/pop', function(newTrackId){
-    //   DZ.api('/playlist/728065965/tracks', 'POST', { songs: [newTrackId] }, function(response){
-
-    //     // Now, clear the former track and reload the page
-    //     DZ.api('/playlist/728065965/tracks', 'DELETE', { songs: [currentTrackId] }, function(response){
-    //       setTimeout(function(){
-    //       }, 1000);
-    //     });
-
-    //   });
-    // });
   }
 
   function onPlayerLoaded() {
@@ -97,8 +69,7 @@
   }, {perms: 'manage_library,delete_library'});
 
 
-</script><br/>
-event_listener : <br/>
-<pre id="event_listener" style="height:100px;overflow:auto;"></pre>
+</script>
+
 </body>
 </html>
