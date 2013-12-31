@@ -22,7 +22,14 @@ function appendTrack(cont, track_id, title, artist, score){
 
   var trackDom = '<li class="row">';
 
-    trackDom += '<div class="small-9 columns">';
+    trackDom += '<div class="small-12 columns">';
+
+      if(score !== undefined){
+        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>+1</a>';
+      }
+      else {
+        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>Ajouter</a>';    
+      }
 
       if(score !== undefined){
         trackDom += '<span>' + score  + '</span>';        
@@ -32,14 +39,6 @@ function appendTrack(cont, track_id, title, artist, score){
       trackDom += '<strong>' + title + '</strong>' + ' ';
     trackDom += '</div>';
 
-    trackDom += '<div class="small-3 columns">';
-      if(score !== undefined){
-        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>+1</a>';
-      }
-      else {
-        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>Ajouter</a>';    
-      }
-    trackDom += '</div>';
 
   trackDom += '</li>';
 
