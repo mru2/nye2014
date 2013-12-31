@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/foundation.min.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <div id="dz-root"></div>
 
+<div class="row">
+  <h1>DJCOLOC</h1>
 
-<h1>BergereBeats</h1>
+  <p>Vote pour le prochain morceau, ou rajoute-en un dans la liste</p>
+</div>
 
 <form id="searchForm">
-  <input id="search" type="text" placeholder="Recherche..."/>
-  <input type="submit" value="Go"/>
+  <div class="row collapse">
+    <div class="small-9 columns">
+      <input id="search" type="text" placeholder="Ajouter un morceau"/>
+    </div>
+    <div class="small-3 columns">
+      <input type="submit" value="Rechercher" class="button postfix"/>
+    </div>
+  </div>
 </form>
+
+<div class="row">
+  <h2 id="title">Playlist en cours</h2>
+</div>
 
 <ul id="results">
 
 </ul>
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
 <script type="text/javascript" src="/public.js"></script>
 
 </body>

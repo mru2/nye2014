@@ -11,7 +11,7 @@ function vote(trackId){
   var track = allTracks[trackId];
   console.log('voting for', track);
   $.get('/api/vote', {track_id: trackId, title: track.title, artist: track.artist}, function(res){
-    // window.location.href = window.location.href; // reloading
+    window.location.href = window.location.href; // reloading
   });
 }
 
@@ -20,14 +20,26 @@ function appendTrack(cont, track_id, title, artist, score){
   // Store the track for data when voting
   allTracks[track_id] = {title: title, artist: artist}
 
-  var trackDom = '<li onclick=vote(' + track_id + ');>';
+  var trackDom = '<li class="row">';
 
-  trackDom += '<em>' + artist + '</em>' + ' '
-  trackDom += '<strong>' + title + '</strong>' + ' '
+    trackDom += '<div class="small-9 columns">';
 
-  if(score !== undefined){
-    trackDom += '<span>' + score + '</span>';
-  }
+      if(score !== undefined){
+        trackDom += '<span>' + score  + '</span>';        
+      }
+
+      trackDom += '<em>' + artist + '</em>' + ' ';
+      trackDom += '<strong>' + title + '</strong>' + ' ';
+    trackDom += '</div>';
+
+    trackDom += '<div class="small-3 columns">';
+      if(score !== undefined){
+        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>+1</a>';
+      }
+      else {
+        trackDom += '<a class="button right" onclick=vote(' + track_id + ');>Ajouter</a>';    
+      }
+    trackDom += '</div>';
 
   trackDom += '</li>';
 
@@ -69,6 +81,7 @@ function onReady(){
       console.log('got response : ', res);
 
       $results.html("");
+      $('#title').html('Recherche : ' + query);
 
       $.each(res.data, function(index, track){
 
