@@ -11,96 +11,16 @@
 
 <h1>BergereBeats</h1>
 
-<input id="search" type="text" placeholder="Recherche..."/>
-<input type="submit" value="Go" id="submit"/>
+<form id="searchForm">
+  <input id="search" type="text" placeholder="Recherche..."/>
+  <input type="submit" value="Go"/>
+</form>
 
 <ul id="results">
 
 </ul>
 
-<script>
-  $(document).ready(onReady);
-
-  DZ.init({
-    appId  : '129845',
-    channelUrl : '/channel'
-  });
-
-  function vote(trackId){
-    console.log('voting for', trackId);
-    $.get('/api/vote', {track_id: trackId});
-  }
-
-  function appendTrack(cont, track, score){
-
-    if(track.readable && track.type === "track"){
-
-      var trackDom = '<li onclick=vote(' + track.id + ');>';
-      trackDom += '<strong>' + track.title + '</strong>' + ' ' +
-        track.artist.name + ' ' +
-        '<small>' + track.duration + '</small>' + ' ';
-
-      if(score !== undefined){
-        trackDom += '<span>' + score + '</span>';
-      }
-
-      trackDom += '</li>';
-
-      cont.append(trackDom);
-    }
-
-  }
-
-  function onReady(){
-    var $results = $('#results');
-
-    $results.html("Loading...");
-
-    // TODO : optimize : store the data in redis directly
-
-    $.getJSON('/api/top', function(res){
-      console.log('top tracks', res);
-
-      $results.html("");
-
-      for (var i = 0; i < res.length; i++) {
-
-        (function(){
-          var trackId = res[i][0];
-          var score = res[i][1];
-
-          DZ.api( ('/track/' + trackId), function(track){
-            appendTrack($results, track, score);
-          });          
-        })();
-
-      }
-    });
-
-    $("#submit").click(function(){
-      $results.html("Searching...");
-
-      var query = $("#search").val();
-
-      console.log('searching for', query);
-
-      DZ.api('/search', 'GET', {q: query, order: 'RANKING'}, function(res){
-        console.log('got response : ', res);
-
-        $results.html("");
-
-        $.each(res.data, function(index, track){
-
-          appendTrack($results, track);
-
-        });
-      });
-
-    });
-
-  }
-
-</script>
+<script type="text/javascript" src="/public.js"></script>
 
 </body>
 </html>
