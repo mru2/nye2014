@@ -53,7 +53,7 @@
       if(pos[0] == 0 && pageLoaded == true){
         console.log('reloading : ', pos);
         pageLoaded == false;        
-        reload();
+        setTimeout(reload, 1); // Sync global variable
       }
     });
 
