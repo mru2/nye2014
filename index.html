@@ -56,6 +56,8 @@
 
     $results.html("Loading...");
 
+    // TODO : optimize : store the data in redis directly
+
     $.getJSON('/api/top', function(res){
       console.log('top tracks', res);
 
