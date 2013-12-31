@@ -44,6 +44,9 @@
       event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
     });
 
+    DZ.player.playPlaylist(728065965);
+    DZ.player.pause();
+
   }
 
   DZ.init({
@@ -65,10 +68,6 @@
       DZ.api('/user/me', function(response) {
         console.log('Good to see you, ' + response.name + '.');
       });
-
-      DZ.player.playPlaylist(728065965);
-      DZ.player.pause();
-
     } else {
       console.log('User cancelled login or did not fully authorize.');
     }
