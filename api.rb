@@ -32,7 +32,7 @@ class Api < Sinatra::Base
   get '/top' do
     content_type :json
 
-    top_tracks = REDIS.zrevrangebyscore TRACKS_KEY, '+inf', '1', :with_scores => true
+    top_tracks = REDIS.zrevrangebyscore TRACKS_KEY, '+inf', '0', :with_scores => true
 
     top_tracks.map{|track_id, track_score| REDIS.hgetall("DETAILS_KEY:#{track_id}").merge(:score => track_score, :id => track_id) }.to_json
   end
