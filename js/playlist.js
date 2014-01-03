@@ -1,4 +1,6 @@
-function PlaylistCtrl($scope) {
+var app = angular.module('playlist', [
+  'ngAnimate'
+]).controller('PlaylistCtrl', function($scope, $filter) {
 
   $scope.playlist = [
     {id: 123, title: "Fade Away", artist: "Vitalic", score: 4},
@@ -26,4 +28,4 @@ function PlaylistCtrl($scope) {
     track.score += 1;
   };
 
-}
+});

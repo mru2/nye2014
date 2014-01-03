@@ -45,3 +45,62 @@ li span {
     font-size: 72px;
     color: #555;
 }
+
+
+/* Playlist reordering */
+/* c.f http://jsfiddle.net/jgoemat/kta95/3/ */
+.track.ng-move {
+  position: relative;
+  top: 72px;
+  transition: all 0.5s ease;
+}
+
+
+.track.ng-move.ng-move-active {
+  transition: all 0.5s ease;
+  top: 0;
+}
+
+.track.ng-move + li {
+    /* cannot have transition on this element */
+    /*transition: all 1s ease;*/
+    position: relative;
+    top: -72px;
+}
+
+.track.ng-move.ng-move-active + li {
+    transition: all 0.5s ease;
+    position: relative;
+    top: 0;
+}
+
+.track.ng-enter {
+    position: relative;
+    opacity: 0.0;
+    height: 0;
+    left: 100px;
+}
+
+.track.ng-enter.ng-enter-active {
+    transition: all 0.5s ease;
+    opacity: 1.0;
+    left: 0;
+    height: 72px;
+}
+
+.track.ng-leave {
+    position: relative;
+    opacity: 1.0;
+    left: 0;
+    height: 72px;
+    z-index: -100;
+}
+
+.track.ng-leave.ng-leave-active {
+    transition: all 0.5s ease;
+    opacity: 0.0;
+    left: 100px;
+    height: 0;
+    top: -36px;
+}
+

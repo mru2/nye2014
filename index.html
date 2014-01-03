@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="playlist">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,7 @@
 
   <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.js"></script>
   <script type="text/javascript" src="/js/playlist.js"></script>
 
 </head>
@@ -39,7 +40,7 @@
 </div>
 
 <ul id="results">
-  <li ng-repeat="track in playlist | orderBy:'score':true" class="row">
+  <li ng-repeat="track in playlist | orderBy:'score':true" class="row track">
     <div class="small-12 columns">
 
       <!-- Vote button -->
