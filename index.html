@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +8,13 @@
   <link rel="stylesheet" type="text/css" href="/normalize.css">
   <link rel="stylesheet" type="text/css" href="/foundation.min.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
+
+  <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+  <script type="text/javascript" src="/js/playlist.js"></script>
+
 </head>
-<body>
+<body ng-controller="PlaylistCtrl">
 <div id="dz-root"></div>
 
 <div class="row">
@@ -34,12 +39,22 @@
 </div>
 
 <ul id="results">
+  <li ng-repeat="track in playlist | orderBy:'score':true" class="row">
+    <div class="small-12 columns">
 
+      <!-- Vote button -->
+      <a class="button right" ng-click="vote(track)">
+        {{ voteButtonText() }}
+      </a>
+
+      <span ng-if="isPlaylist()">{{ track.score }}</span>
+
+      <em>{{ track.artist }}</em>
+      <strong>{{ track.title }}</strong>
+
+    </div>
+  </li>
 </ul>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
-<script type="text/javascript" src="/public.js"></script>
 
 </body>
 </html>
