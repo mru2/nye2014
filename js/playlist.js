@@ -1,6 +1,23 @@
 var app = angular.module('playlist', [
   'ngAnimate'
-]).controller('PlaylistCtrl', function($scope, $filter) {
+]).controller('PlaylistCtrl', function($scope, $timeout) {
+
+
+  var dot = function(track, score, interval){
+    return function(){
+      interval = interval || 1000;
+      track.score += 1;
+
+      if(score == 1){
+      }
+      else {
+        console.log('calling next');
+
+        // Recursive call is recursive
+        $timeout(dot(track, score-1, interval), 1000);
+      }
+    }
+  }
 
   $scope.playlist = [
     {id: 123, title: "Fade Away", artist: "Vitalic", score: 4},
@@ -25,7 +42,8 @@ var app = angular.module('playlist', [
   };
 
   $scope.vote = function(track){
-    track.score += 1;
+    console.log('calling dot');
+    dot(track, 10, 1000)();
   };
 
 });
